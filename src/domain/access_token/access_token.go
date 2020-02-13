@@ -34,7 +34,7 @@ type AccessTokenRequest struct {
 	ClientSecret string `json:"client_secret"`
 }
 
-func (atr *AccessTokenRequest) Validate() *rest_errors.RestErr {
+func (atr *AccessTokenRequest) Validate() rest_errors.RestErr {
 	switch atr.GrantType {
 	case grantTypePassword:
 		break
@@ -46,7 +46,7 @@ func (atr *AccessTokenRequest) Validate() *rest_errors.RestErr {
 	return nil
 }
 
-func (token AccessToken) Validate() *rest_errors.RestErr {
+func (token AccessToken) Validate() rest_errors.RestErr {
 	token.AccessToken = strings.TrimSpace(token.AccessToken)
 	if len(token.AccessToken) == 0 {
 		return rest_errors.NewInternalServerError("Token id errors! It can not be Zero", errors.New("Access Token can not be Zero"))

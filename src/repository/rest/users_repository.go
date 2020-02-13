@@ -14,12 +14,12 @@ import (
 var (
 	userRequestClient = rest.RequestBuilder{
 		Timeout: 100 * time.Millisecond,
-		BaseURL: "http://localhost:8080",
+		BaseURL: "http://localhost:8082",
 	}
 )
 
 type RestUserRepository interface {
-	UserLogin(string, string) (*users.User, *rest_errors.RestErr)
+	UserLogin(string, string) (*users.User, rest_errors.RestErr)
 }
 type usersRepository struct{}
 
@@ -27,7 +27,7 @@ func NewRepository() RestUserRepository {
 	return &usersRepository{}
 }
 
-func (ur *usersRepository) UserLogin(login string, password string) (*users.User, *rest_errors.RestErr) {
+func (ur *usersRepository) UserLogin(login string, password string) (*users.User, rest_errors.RestErr) {
 	if (strings.TrimSpace(login) == "") || (strings.TrimSpace(password) == "") {
 		err := rest_errors.NewBadRequestError("Invalid Login and Password")
 		return nil, err

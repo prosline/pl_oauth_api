@@ -18,6 +18,6 @@ func StartApplication() {
 	router.GET("/oauth/access_token/:access_token_id", atHandler.GetById)
 	router.POST("/oauth/access_token", atHandler.Create)
 	router.PUT("/oauth/access_token", atHandler.UpdateExpiration)
-	logger.Info("Starting Application....")
-	router.Run(":8000")
+	logger.Info("Starting Application on Port 8080....")
+	router.Run(":8080")
 }

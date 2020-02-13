@@ -29,7 +29,7 @@ func (handler *accessTokenHandler) GetById(c *gin.Context) {
 	accessTokenId := strings.TrimSpace(c.Param("access_token_id"))
 	accessToken, err := handler.service.GetById(accessTokenId)
 	if err != nil {
-		c.JSON(err.Status, err)
+		c.JSON(err.Status(), err)
 		return
 	}
 	c.JSON(http.StatusOK, accessToken)
@@ -48,7 +48,7 @@ func (handler *accessTokenHandler) Create(c *gin.Context) {
 //	}
 	accessToken, er := handler.service.Create(atr)
 	if er != nil {
-		c.JSON(er.Status, er.Message)
+		c.JSON(er.Status(), er.Message)
 		return
 	}
 	c.JSON(http.StatusCreated, accessToken)
@@ -61,7 +61,7 @@ func (handler *accessTokenHandler) UpdateExpiration(c *gin.Context) {
 		return
 	}
 	if err := at.Validate(); err != nil {
-		er := rest_errors.BadRequestError(err.Message)
+		er := rest_errors.BadRequestError(err.Message())
 		c.JSON(http.StatusBadRequest, er.Message)
 		return
 	}
